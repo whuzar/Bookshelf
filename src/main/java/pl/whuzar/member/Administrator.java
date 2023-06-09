@@ -1,14 +1,14 @@
-package pl.whuzar;
+package pl.whuzar.member;
 
 import jakarta.persistence.*;
 
-@Entity(name = "User")
-@Table(name = "user_bookshelf", uniqueConstraints = {@UniqueConstraint(name = "email_unique", columnNames = "email")})
-public class User {
+@Entity(name = "Administrator")
+@Table(name = "admin_bookshelf", uniqueConstraints = {@UniqueConstraint(name = "admin_email_unique", columnNames = "email")})
+public class Administrator {
 
     @Id
-    @SequenceGenerator(name = "user_sequence", sequenceName = "user_sequence", allocationSize = 1)
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "user_sequence")
+    @SequenceGenerator(name = "admin_sequence", sequenceName = "admin_sequence", allocationSize = 1)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "admin_sequence")
     @Column(name = "id", updatable = false)
     private Long id;
 
@@ -27,19 +27,15 @@ public class User {
     @Column(name = "phone_number", nullable = false, length = 9)
     private Integer phoneNumber;
 
-    @Column(name = "password", nullable = false, length = 100, columnDefinition = "VARCHAR")
-    private String password;
-
-    public User(String firstName, String lastName, Integer age, String email, Integer phoneNumber, String password) {
+    public Administrator(String firstName, String lastName, Integer age, String email, Integer phoneNumber) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.age = age;
         this.email = email;
         this.phoneNumber = phoneNumber;
-        this.password = password;
     }
 
-    public User() {
+    public Administrator() {
     }
 
     public Long getId() {
@@ -90,24 +86,15 @@ public class User {
         this.phoneNumber = phoneNumber;
     }
 
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
-    }
-
     @Override
     public String toString() {
-        return "User{" +
+        return "Administrator{" +
                 "id=" + id +
                 ", firstName='" + firstName + '\'' +
                 ", lastName='" + lastName + '\'' +
                 ", age=" + age +
                 ", email='" + email + '\'' +
                 ", phoneNumber=" + phoneNumber +
-                ", password='" + password + '\'' +
                 '}';
     }
 }
