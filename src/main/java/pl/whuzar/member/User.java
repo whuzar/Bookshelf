@@ -1,6 +1,10 @@
 package pl.whuzar.member;
 
 import jakarta.persistence.*;
+import pl.whuzar.books.Book;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity(name = "User")
 @Table(name = "user_bookshelf", uniqueConstraints = {@UniqueConstraint(name = "user_email_unique", columnNames = "email")})
@@ -27,13 +31,28 @@ public class User {
     @Column(name = "phone_number", nullable = false, length = 9)
     private Integer phoneNumber;
 
+    @Column(name = "password", nullable = false, length = 100, columnDefinition = "VARCHAR")
+    private String password;
 
-    public User(String firstName, String lastName, Integer age, String email, Integer phoneNumber) {
+    @Column(name = "user_name", nullable = false, length = 100, columnDefinition = "VARCHAR")
+    private String userName;
+
+    @Column(name = "roles", nullable = false, length = 100, columnDefinition = "VARCHAR")
+    private String roles;
+
+    @OneToMany(mappedBy = "user", orphanRemoval = true, cascade = CascadeType.ALL)
+    private List<Book> bookList = new ArrayList<>();
+
+
+    public User(String firstName, String lastName, Integer age, String email, Integer phoneNumber, String password, String userName, String roles) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.age = age;
         this.email = email;
         this.phoneNumber = phoneNumber;
+        this.password = password;
+        this.userName = userName;
+        this.roles = roles;
     }
 
     public User() {
@@ -85,6 +104,38 @@ public class User {
 
     public void setPhoneNumber(Integer phoneNumber) {
         this.phoneNumber = phoneNumber;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public String getUserName() {
+        return userName;
+    }
+
+    public void setUserName(String userName) {
+        this.userName = userName;
+    }
+
+    public String getRoles() {
+        return roles;
+    }
+
+    public void setRoles(String roles) {
+        this.roles = roles;
+    }
+
+    public List<Book> getBookList() {
+        return bookList;
+    }
+
+    public void setBookList(List<Book> bookList) {
+        this.bookList = bookList;
     }
 
     @Override

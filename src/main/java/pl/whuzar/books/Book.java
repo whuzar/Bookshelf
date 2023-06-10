@@ -1,6 +1,7 @@
 package pl.whuzar.books;
 
 import jakarta.persistence.*;
+import pl.whuzar.member.User;
 
 import java.sql.Timestamp;
 
@@ -34,6 +35,10 @@ public class Book {
 
     @Column(name = "category", nullable = false, columnDefinition = "VARCHAR")
     private String category;
+
+    @ManyToOne
+    @JoinColumn(name = "user_bookshelf_id", nullable = false, referencedColumnName = "id", foreignKey = @ForeignKey(name = "user_bookshelf_fk"))
+    private User user;
 
     public Book(String name, String author, String description, Timestamp releaseDate, Integer amount, String isbn, String category) {
         this.name = name;
